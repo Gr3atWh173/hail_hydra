@@ -9,14 +9,14 @@ RSpec.describe HailHydra::Torrent do
     args = {
       name: "Test torrent name",
       url: "https://someurl.com/somefile.ext",
-      category: "movie",
-      subcategory: "comedy"
+      seeders: "1443",
+      leechers: "20"
     }
     torrent = HailHydra::Torrent.new(args)
 
     expect(torrent.name).to eq args[:name]
     expect(torrent.url).to eq args[:url]
-    expect(torrent.category).to eq args[:category]
-    expect(torrent.subcategory).to eq args[:subcategory]
+    expect(torrent.seeders).to eq args[:seeders]
+    expect(torrent.leechers).to eq args[:leechers]
   end
 end

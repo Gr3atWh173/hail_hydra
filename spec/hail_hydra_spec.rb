@@ -12,7 +12,7 @@ RSpec.describe HailHydra do
   end
 
   it "returns an array of Torrents" do
-    a = HailHydra::TPB.new(DOMAIN).search("parmanu")
+    a = HailHydra::TPB.new(DOMAIN).search("darkness")
     expect(a).to be_a_kind_of Array
     expect(a[0]).to be_a_kind_of HailHydra::Torrent
   end
