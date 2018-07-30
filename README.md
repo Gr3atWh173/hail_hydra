@@ -29,16 +29,18 @@ From code
 ```ruby
 s = HailHydra::TPB.new("https://thepiratebay.org")
 
-res = s.search('totallynotillegal', 2) #=> two pages worth of Torrent objects
-puts res[0].name + " " + res[0].url 
+res = s.search('totallynotillegal')
+res.each do |torrent|
+    puts torrent.name + " " + torrent.url
+end
 
 ```
 
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+## Future releases
+1. Scrape more info about the torrents
+2. Add functionality to allow uploading torrents
+3. Add user auth?
+4. Add ability to comment
 
 ## Contributing
 
