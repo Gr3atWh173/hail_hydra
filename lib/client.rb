@@ -3,12 +3,16 @@ require "nokogiri"
 require_relative "torrent.rb"
 
 module HailHydra
+  # The TPB class provides the main client to connect to and scrape the 
+  # results. This may be broken into a 'client' and 'parser' in the future.
   class TPB
+    # remember the domain name and get the cookie to use from the TPB server
     def initialize(domain_name)
       @domain = domain_name
       @headers = get_query_headers
     end
 
+    # search torrents
     def search(query, pages=1, orderby=99)
       get = make_search_request(query, pages, orderby)
       raise "Invalid response: #{get.response.code}" unless get.response.code == "200"
