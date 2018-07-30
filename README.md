@@ -27,7 +27,7 @@ $ thepiratebay totallynotillegal 2
 
 From code
 ```ruby
-s = HailHydra::TPB("https://thepiratebay.org")
+s = HailHydra::TPB.new("https://thepiratebay.org")
 
 res = s.search('totallynotillegal', 2) #=> two pages worth of Torrent objects
 puts res[0].name + " " + res[0].url 
