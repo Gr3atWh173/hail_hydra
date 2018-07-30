@@ -11,9 +11,7 @@ module HailHydra
 
     def search(query, pages=1, orderby=99)
       get = make_search_request(query, pages, orderby)
-
       raise "Invalid response: #{get.response.code}" unless get.response.code == "200"
-      
       return parse_search_results(get.response.body)
     end
 
@@ -31,10 +29,13 @@ module HailHydra
       torrents = []
       1.upto cells.length-1 do |i|
         torrent = HailHydra::Torrent.new()
-        torrent.name = cells[i][1].children[1].children[1].children[0].content
-        torrent.url = @domain +  cells[i][1].children[1].children[1].attributes["href"].value
-        torrent.magnet_link = cells[i][1].children[3].attributes["href"].value
 
+        torrent.name        = cells[i][1].children[1].children[1].children[0].content
+        torrent.url         = @domain +  cells[i][1].children[1].children[1].attributes["href"].value
+        torrent.magnet_link = cells[i][1].children[3].attributes["href"].value
+        torrent.seeders     = cells[i][2].children[0].content
+        torrent.leechers    = cells[i][3].children[0].content
+        
         torrents.push torrent
       end
       return torrents
@@ -46,7 +47,10 @@ module HailHydra
         "page" => 0.to_s,
         "orderby" => orderby.to_s
       }
-      HTTParty.get(@domain+"/search/" + query["q"] + "/0/" + query["orderby"] + "/0", headers: @headers)
+
+      # not sure why HTTParty doesn't do this already
+      encoded_uri = URI.encode(@domain+"/search/" + query["q"] + "/0/" + query["orderby"] + "/0")
+      HTTParty.get(encoded_uri, headers: @headers)
     end
 
     def get_query_headers()

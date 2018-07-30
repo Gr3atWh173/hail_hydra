@@ -4,9 +4,13 @@ require 'hail_hydra'
 
 domain = "https://thepiratebay.org"
 search = ARGV[0]
-pages = ARGV[1].nil? ? 0 : ARGV[1]
+pages = 1
 
-puts "NAME\t\t\t\t"
 HailHydra::TPB.new(domain).search(search, pages).each do |result|
-  puts result.name + "\t\t\t\t" + result.url
+  puts ""
+  puts "NAME: " + result.name
+  puts "URL: " + result.url
+  puts "SEEDERS: " + result.seeders
+  puts "LEECHERS: " + result.leechers
+  puts "MAGNET: " + result.magnet_link
 end
