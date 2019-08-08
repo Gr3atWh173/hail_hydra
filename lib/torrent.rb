@@ -7,6 +7,7 @@ module HailHydra
     attr_accessor :uploaded_at
     attr_accessor :uploaded_by
     attr_accessor :magnet_link
+    attr_accessor :size
     
     def initialize(args={})
       self.name = args[:name]
@@ -15,6 +16,7 @@ module HailHydra
       self.leechers = args[:leechers]
       self.uploaded_at = args[:uploaded_at]
       self.uploaded_by = args[:uploaded_by]
+      self.size = args[:size]
       self.magnet_link = args[:magnet_link]
     end
   end

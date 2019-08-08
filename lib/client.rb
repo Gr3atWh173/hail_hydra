@@ -25,12 +25,13 @@ module HailHydra
       nodes = Nokogiri::HTML(html_text)
       cells = []
       table = nodes.search('table')
-      #require 'pry'
-      #binding.pry
+      
       table.search('tr').each do |tr|
         cells.push(tr.search('th, td'))
       end
+
       torrents = []
+      descriptions = nodes.css('font.detDesc') 
       1.upto cells.length-1 do |i|
         torrent = HailHydra::Torrent.new()
 
@@ -39,6 +40,13 @@ module HailHydra
         torrent.magnet_link = cells[i][1].children[3].attributes["href"].value
         torrent.seeders     = cells[i][2].children[0].content
         torrent.leechers    = cells[i][3].children[0].content
+
+        # extracting the uploaded by, at and size is a bit trickier
+        info_line = descriptions[i-1].text.gsub("\u00A0", "---").split(",").map(&:strip)
+        
+        torrent.uploaded_at = info_line[0].split(" ")[1].gsub("---", " ")
+        torrent.size        = info_line[1].split(" ")[1].gsub("---", " ")
+        torrent.uploaded_by = info_line[2].split(" ")[2]
         
         torrents.push torrent
       end
