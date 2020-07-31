@@ -29,20 +29,14 @@ $ thepiratebay totallynotillegal
 
 From code
 ```ruby
-s = HailHydra::TPB.new("https://thepiratebay.org")
+s = HailHydra::TPB.new("https://apibay.org")
 
 res = s.search('totallynotillegal')
 res.each do |torrent|
-    puts torrent.name + " " + torrent.url
+    puts torrent.name + " " + torrent.size
 end
 
 ```
-
-## Future releases
-1. Scrape more info about the torrents
-2. Add functionality to allow uploading torrents
-3. Add user auth?
-4. Add ability to comment
 
 ## Contributing
 
@@ -57,4 +51,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 Everyone interacting in the HailHydra project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/Gr3atWh173/hail_hydra/blob/master/CODE_OF_CONDUCT.md).
 
 ## DISCLAIMER
-Neither this project or its author are related to ThePirateBay in any way.
+Neither this project nor its author are related to ThePirateBay in any way.
